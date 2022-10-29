@@ -5,7 +5,6 @@ import Image from 'react-bootstrap/Image'
 import { FaBookmark, FaEye, FaShareAlt, FaStar } from "react-icons/fa";
 
 const NewsSummaryCart = ({ news }) => {
-    console.log(news);
     const { _id, author, img, name, rating, published_date, details, total_view, image_url, title } = news;
     return (
         <div>
@@ -32,11 +31,11 @@ const NewsSummaryCart = ({ news }) => {
                     <Card.Text>
                         {
                             details.length > 250 ?
-                                <p>{details.slice(0, 250) + '...'}
+                                <>{details.slice(0, 250) + '...'}
                                     <Link to={`/news/${_id}`}>Read More</Link>
-                                </p>
+                                </>
                                 :
-                                <p>{details}</p>
+                                details
                         }
                     </Card.Text>
 

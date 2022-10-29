@@ -5,7 +5,7 @@ import Card from 'react-bootstrap/Card';
 const News = () => {
     const news = useLoaderData()
     console.log(news)
-    const { details, title, image_url, thumbnail_url, category_id } = news;
+    const { details, title, image_url, category_id } = news;
     return (
 
         <Card style={{ width: '30rem' }}>

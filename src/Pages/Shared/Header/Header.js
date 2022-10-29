@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Image } from 'react-bootstrap';
+import { Button, Image } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -9,7 +9,15 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 import LeftSideNav from '../LeftSideNav/LeftSideNav';
 const Header = () => {
-    const { user } = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
+
+    const handleLogoutbutton = () => {
+        logOut()
+            .then(() => { })
+            .catch(error => {
+                console.error(error)
+            })
+    }
     return (
         <div>
             <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
@@ -33,10 +41,23 @@ const Header = () => {
                             </NavDropdown>
                         </Nav>
                         <Nav>
-                            <Nav.Link href="#deets">{user?.displayName}</Nav.Link>
+                            <>
+                                {
+                                    user?.uid ?
+                                        <>
+                                            <span>{user.displayName}</span>
+                                            <Button className='mt-[-5]' variant="light" onClick={handleLogoutbutton}>Log out</Button>
+                                        </>
+                                        :
+                                        <>
+                                            <Link className='me-2' to='/login'>Login</Link>
+                                            <Link to='/register'>Register</Link>
+                                        </>
+                                }
+                            </>
                             <Nav.Link eventKey={2} href="#memes">
                                 {
-                                    user.photoURL ?
+                                    user?.photoURL ?
                                         <Image style={{ height: '30px' }} roundedCircle src={user?.photoURL}></Image>
                                         :
                                         <FaUser></FaUser>
